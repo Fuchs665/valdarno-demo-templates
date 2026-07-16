@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Osteria della Torre — Cucina toscana nel Valdarno</title>
+<meta name="description" content="Osteria della Torre, cucina toscana tradizionale nel cuore del Valdarno fiorentino. Prenota il tuo tavolo.">
+<style>
+  :root{
+    --cream:#FBF8F2;
+    --ink:#2B2620;
+    --brick:#7B3B2E;
+    --olive:#5C6B4A;
+    --gold:#B8934A;
+    --line:#E4DCCB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Georgia','Times New Roman',serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,248,242,0.95);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  header .wrap{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;}
+  .logo{font-size:1.3rem;letter-spacing:0.08em;text-transform:uppercase;font-weight:bold;color:var(--brick);}
+  nav a{margin-left:22px;text-decoration:none;font-size:0.95rem;letter-spacing:0.03em;}
+  .btn{
+    display:inline-block;background:var(--brick);color:#fff;
+    padding:12px 26px;border-radius:2px;text-decoration:none;
+    font-size:0.95rem;letter-spacing:0.03em;transition:background 0.2s;
+  }
+  .btn:hover{background:#5f2e24;}
+  .btn-outline{background:transparent;border:1.5px solid var(--brick);color:var(--brick);}
+
+  .hero{
+    min-height:88vh;display:flex;align-items:center;
+    background:linear-gradient(rgba(30,20,15,0.45),rgba(30,20,15,0.55)),
+      url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80') center/cover;
+    color:#fff;text-align:center;
+  }
+  .hero .wrap{width:100%;}
+  .hero .tag{letter-spacing:0.25em;text-transform:uppercase;font-size:0.85rem;color:var(--gold);margin-bottom:18px;}
+  .hero h1{font-size:3rem;font-weight:normal;margin-bottom:16px;}
+  .hero p{font-size:1.15rem;max-width:520px;margin:0 auto 30px;opacity:0.92;}
+
+  section{padding:80px 0;}
+  .section-title{text-align:center;margin-bottom:12px;font-size:2rem;font-weight:normal;color:var(--brick);}
+  .section-sub{text-align:center;color:#6b6455;margin-bottom:50px;font-size:1rem;}
+
+  .story{display:flex;gap:50px;align-items:center;flex-wrap:wrap;}
+  .story img{flex:1 1 380px;width:100%;max-width:480px;border-radius:3px;}
+  .story-text{flex:1 1 380px;}
+  .story-text h2{font-size:1.8rem;color:var(--brick);margin-bottom:18px;font-weight:normal;}
+
+  .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+  .menu-cat h3{color:var(--olive);text-transform:uppercase;letter-spacing:0.1em;font-size:1rem;margin-bottom:20px;border-bottom:1px solid var(--line);padding-bottom:10px;}
+  .menu-item{display:flex;justify-content:space-between;gap:14px;margin-bottom:16px;}
+  .menu-item .name{font-weight:bold;}
+  .menu-item .desc{display:block;font-size:0.9rem;color:#6b6455;font-weight:normal;}
+  .menu-item .price{white-space:nowrap;color:var(--brick);font-weight:bold;}
+
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .gallery img{width:100%;height:220px;object-fit:cover;border-radius:2px;}
+
+  .reviews{background:#fff;}
+  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+  .review{background:var(--cream);padding:28px;border-radius:3px;border:1px solid var(--line);}
+  .review .stars{color:var(--gold);margin-bottom:10px;}
+  .review .author{margin-top:14px;font-weight:bold;font-size:0.9rem;}
+
+  .info{background:var(--olive);color:#fff;}
+  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center;}
+  .info-grid h3{text-transform:uppercase;letter-spacing:0.1em;font-size:0.9rem;margin-bottom:14px;color:var(--gold);}
+
+  .cta{
+    text-align:center;background:var(--brick);color:#fff;padding:70px 0;
+  }
+  .cta h2{font-size:2rem;font-weight:normal;margin-bottom:16px;}
+  .cta .btn{background:#fff;color:var(--brick);}
+  .cta .btn:hover{background:var(--cream);}
+
+  footer{padding:36px 0;text-align:center;font-size:0.85rem;color:#6b6455;}
+
+  @media (max-width:800px){
+    nav{display:none;}
+    .hero h1{font-size:2.1rem;}
+    .menu-grid,.review-grid,.info-grid{grid-template-columns:1fr;}
+    .gallery{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">Osteria della Torre</div>
+    <nav>
+      <a href="#storia">La Storia</a>
+      <a href="#menu">Menu</a>
+      <a href="#galleria">Galleria</a>
+      <a href="#dove">Dove Siamo</a>
+    </nav>
+    <a class="btn" href="https://wa.me/390000000000" target="_blank" rel="noopener">Prenota su WhatsApp</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="tag">Valdarno Fiorentino</div>
+    <h1>Cucina toscana, come una volta.</h1>
+    <p>Piatti della tradizione contadina, prodotti a km zero e un'accoglienza di famiglia, nel cuore delle colline tra Rignano e Figline.</p>
+    <a class="btn" href="https://wa.me/390000000000" target="_blank" rel="noopener">Prenota il tuo tavolo</a>
+  </div>
+</section>
+
+<section id="storia">
+  <div class="wrap story">
+    <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=800&q=80" alt="Interno dell'osteria">
+    <div class="story-text">
+      <h2>Una cucina di famiglia dal 1987</h2>
+      <p>L'Osteria della Torre nasce dalla passione di tre generazioni per la cucina toscana autentica. Ogni piatto racconta la storia della nostra terra: la pasta è fatta a mano ogni mattina, la carne arriva dagli allevamenti della vallata, l'olio è quello del nostro frantoio di famiglia.</p>
+      <br>
+      <p>Un ambiente caldo e informale, perfetto per una cena tra amici o un pranzo di lavoro, a pochi minuti da Figline Valdarno e Rignano sull'Arno.</p>
+    </div>
+  </div>
+</section>
+
+<section id="menu" style="background:#fff;">
+  <div class="wrap">
+    <h2 class="section-title">Il Menu</h2>
+    <p class="section-sub">Una selezione dei nostri piatti — il menu completo cambia con la stagione</p>
+    <div class="menu-grid">
+      <div class="menu-cat">
+        <h3>Antipasti</h3>
+        <div class="menu-item"><span class="name">Tagliere Toscano<span class="desc">Salumi e formaggi locali, crostini al fegatino, sottoli della casa</span></span><span class="price">€14</span></div>
+        <div class="menu-item"><span class="name">Panzanella d'estate<span class="desc">Pane raffermo, pomodori, cetrioli, cipolla rossa</span></span><span class="price">€9</span></div>
+        <div class="menu-item"><span class="name">Crostini Misti<span class="desc">Fegatino, pomodoro fresco, cavolo nero</span></span><span class="price">€8</span></div>
+      </div>
+      <div class="menu-cat">
+        <h3>Primi Piatti</h3>
+        <div class="menu-item"><span class="name">Pappardelle al Cinghiale<span class="desc">Fatte a mano, ragù di cinghiale della vallata</span></span><span class="price">€15</span></div>
+        <div class="menu-item"><span class="name">Ribollita della Nonna<span class="desc">Zuppa di verdure e pane, ricetta tradizionale</span></span><span class="price">€11</span></div>
+        <div class="menu-item"><span class="name">Tortelli di Patate<span class="desc">Al ragù o burro e salvia</span></span><span class="price">€13</span></div>
+      </div>
+      <div class="menu-cat">
+        <h3>Secondi Piatti</h3>
+        <div class="menu-item"><span class="name">Bistecca alla Fiorentina<span class="desc">Razza Chianina, cottura alla brace (min. 1kg)</span></span><span class="price">€6,5/hg</span></div>
+        <div class="menu-item"><span class="name">Peposo alla Fornacina<span class="desc">Stufato di manzo al vino rosso e pepe nero</span></span><span class="price">€16</span></div>
+        <div class="menu-item"><span class="name">Coniglio in Umido<span class="desc">Con olive taggiasche e rosmarino</span></span><span class="price">€15</span></div>
+      </div>
+      <div class="menu-cat">
+        <h3>Dolci</h3>
+        <div class="menu-item"><span class="name">Torta della Nonna<span class="desc">Crema pasticcera e pinoli</span></span><span class="price">€6</span></div>
+        <div class="menu-item"><span class="name">Cantucci e Vin Santo<span class="desc">Fatti in casa</span></span><span class="price">€7</span></div>
+        <div class="menu-item"><span class="name">Panna Cotta ai Frutti di Bosco</span><span class="price">€6</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="galleria">
+  <div class="wrap">
+    <h2 class="section-title">Galleria</h2>
+    <p class="section-sub">Un assaggio dell'atmosfera dell'osteria</p>
+    <div class="gallery">
+      <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=500&q=80" alt="Piatto tipico toscano">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=500&q=80" alt="Sala dell'osteria">
+      <img src="https://images.unsplash.com/photo-1498654200943-1088dd4438ae?auto=format&fit=crop&w=500&q=80" alt="Tavolo apparecchiato">
+      <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=500&q=80" alt="Bicchiere di vino rosso">
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="wrap">
+    <h2 class="section-title">Cosa Dicono i Nostri Ospiti</h2>
+    <p class="section-sub">Le recensioni di chi è già passato da noi</p>
+    <div class="review-grid">
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>"La bistecca alla fiorentina più buona che abbia mai mangiato. Ambiente familiare e prezzi onesti."</p>
+        <div class="author">— Marco R., Firenze</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>"Un angolo di Toscana vera. Le pappardelle al cinghiale sono da provare assolutamente."</p>
+        <div class="author">— Giulia B., Arezzo</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>"Ci torniamo sempre quando siamo in zona. Personale gentilissimo e cucina eccellente."</p>
+        <div class="author">— Thomas & Anna, Monaco di Baviera</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info" id="dove">
+  <div class="wrap info-grid">
+    <div>
+      <h3>Dove Siamo</h3>
+      <p>Via del Valdarno, 12<br>Figline e Incisa Valdarno (FI)</p>
+    </div>
+    <div>
+      <h3>Orari</h3>
+      <p>Mar–Dom: 12:30–14:30<br>Mar–Dom: 19:30–22:30<br>Lunedì chiuso</p>
+    </div>
+    <div>
+      <h3>Contatti</h3>
+      <p>Tel: 055 000 0000<br>WhatsApp: 333 000 0000</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Ti aspettiamo a tavola</h2>
+    <p style="margin-bottom:28px;opacity:0.9;">Prenota in un click, ti rispondiamo entro pochi minuti</p>
+    <a class="btn" href="https://wa.me/390000000000" target="_blank" rel="noopener">Prenota su WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    &copy; 2026 Osteria della Torre — Valdarno Fiorentino
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Villa delle Ginestre — Location per Matrimoni ed Eventi nel Valdarno</title>
+<meta name="description" content="Villa delle Ginestre, location esclusiva per matrimoni ed eventi nel cuore del Valdarno fiorentino. Richiedi un sopralluogo gratuito.">
+<style>
+  :root{
+    --cream:#F8F5F0;
+    --ink:#2A2621;
+    --rose:#A9647A;
+    --sage:#7E8A6F;
+    --gold:#C6A15B;
+    --line:#E8E0D2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Georgia','Times New Roman',serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.65;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(248,245,240,0.95);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  header .wrap{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;}
+  .logo{font-size:1.3rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:bold;color:var(--rose);}
+  nav a{margin-left:22px;text-decoration:none;font-size:0.92rem;letter-spacing:0.03em;}
+  .btn{
+    display:inline-block;background:var(--rose);color:#fff;
+    padding:13px 28px;border-radius:2px;text-decoration:none;
+    font-size:0.95rem;letter-spacing:0.03em;transition:background 0.2s;
+  }
+  .btn:hover{background:#8f4f63;}
+
+  .hero{
+    min-height:90vh;display:flex;align-items:center;
+    background:linear-gradient(rgba(30,20,20,0.35),rgba(30,20,20,0.55)),
+      url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80') center/cover;
+    color:#fff;text-align:center;
+  }
+  .hero .wrap{width:100%;}
+  .hero .tag{letter-spacing:0.3em;text-transform:uppercase;font-size:0.82rem;color:var(--gold);margin-bottom:18px;}
+  .hero h1{font-size:3.1rem;font-weight:normal;margin-bottom:16px;}
+  .hero p{font-size:1.15rem;max-width:560px;margin:0 auto 32px;opacity:0.92;}
+
+  section{padding:85px 0;}
+  .section-title{text-align:center;margin-bottom:12px;font-size:2.1rem;font-weight:normal;color:var(--rose);}
+  .section-sub{text-align:center;color:#6b6455;margin-bottom:55px;font-size:1rem;max-width:600px;margin-left:auto;margin-right:auto;}
+
+  .story{display:flex;gap:50px;align-items:center;flex-wrap:wrap;}
+  .story img{flex:1 1 380px;width:100%;max-width:480px;border-radius:3px;}
+  .story-text{flex:1 1 380px;}
+  .story-text h2{font-size:1.8rem;color:var(--rose);margin-bottom:18px;font-weight:normal;}
+
+  .spaces{background:#fff;}
+  .spaces-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+  .space-card{border:1px solid var(--line);border-radius:3px;overflow:hidden;}
+  .space-card img{width:100%;height:200px;object-fit:cover;}
+  .space-card .body{padding:22px;}
+  .space-card h3{color:var(--rose);font-weight:normal;font-size:1.2rem;margin-bottom:10px;}
+  .space-card .capacity{font-size:0.85rem;color:var(--sage);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;}
+  .space-card p{font-size:0.92rem;color:#5c5548;}
+
+  .services{}
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center;}
+  .service-icon{font-size:1.8rem;margin-bottom:14px;color:var(--gold);}
+  .services-grid h4{font-size:1rem;margin-bottom:8px;color:var(--rose);font-weight:normal;letter-spacing:0.03em;}
+  .services-grid p{font-size:0.88rem;color:#6b6455;}
+
+  .gallery{background:#fff;}
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .gallery-grid img{width:100%;height:220px;object-fit:cover;border-radius:2px;}
+
+  .reviews{}
+  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+  .review{background:#fff;padding:28px;border-radius:3px;border:1px solid var(--line);}
+  .review .stars{color:var(--gold);margin-bottom:10px;}
+  .review .author{margin-top:14px;font-weight:bold;font-size:0.9rem;}
+
+  .info{background:var(--sage);color:#fff;}
+  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center;}
+  .info-grid h3{text-transform:uppercase;letter-spacing:0.1em;font-size:0.88rem;margin-bottom:14px;color:var(--gold);}
+
+  form.request{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+  form.request input, form.request select, form.request textarea{
+    padding:13px 14px;border:1px solid var(--line);border-radius:2px;font-family:inherit;font-size:0.95rem;background:#fff;
+  }
+  form.request textarea{min-height:90px;resize:vertical;}
+  form.request label{font-size:0.85rem;color:#6b6455;margin-bottom:-8px;}
+
+  .cta{
+    text-align:center;background:var(--rose);color:#fff;padding:75px 0;
+  }
+  .cta h2{font-size:2.1rem;font-weight:normal;margin-bottom:16px;}
+  .cta .btn{background:#fff;color:var(--rose);}
+  .cta .btn:hover{background:var(--cream);}
+
+  footer{padding:36px 0;text-align:center;font-size:0.85rem;color:#6b6455;}
+
+  @media (max-width:800px){
+    nav{display:none;}
+    .hero h1{font-size:2.2rem;}
+    .spaces-grid,.review-grid,.info-grid,.services-grid{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">Villa delle Ginestre</div>
+    <nav>
+      <a href="#storia">La Villa</a>
+      <a href="#spazi">Gli Spazi</a>
+      <a href="#servizi">Servizi</a>
+      <a href="#richiedi">Richiedi Info</a>
+    </nav>
+    <a class="btn" href="https://wa.me/390000000000" target="_blank" rel="noopener">Richiedi un Sopralluogo</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="tag">Valdarno Fiorentino</div>
+    <h1>Il giorno più importante, nella cornice più bella.</h1>
+    <p>Una villa storica tra gli ulivi del Valdarno, per matrimoni, cerimonie ed eventi che restano nel cuore degli invitati.</p>
+    <a class="btn" href="https://wa.me/390000000000" target="_blank" rel="noopener">Richiedi disponibilità e preventivo</a>
+  </div>
+</section>
+
+<section id="storia">
+  <div class="wrap story">
+    <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=800&q=80" alt="Giardino della villa">
+    <div class="story-text">
+      <h2>Una villa del '700 tra le colline toscane</h2>
+      <p>Villa delle Ginestre è una tenuta storica immersa in sette ettari di uliveti e giardini all'italiana, tra Rignano sull'Arno e Figline Valdarno. Le sue sale affrescate e il parco secolare accolgono cerimonie, ricevimenti e feste private tutto l'anno.</p>
+      <br>
+      <p>A soli 30 minuti da Firenze, offriamo agli sposi e ai loro ospiti un'atmosfera intima ed elegante, con la possibilità di pernottamento in villa per la coppia e i familiari più stretti.</p>
+    </div>
+  </div>
+</section>
+
+<section id="spazi" class="spaces">
+  <div class="wrap">
+    <h2 class="section-title">Gli Spazi</h2>
+    <p class="section-sub">Ogni evento ha la sua cornice ideale: dal rito simbolico in giardino al ricevimento nel salone storico</p>
+    <div class="spaces-grid">
+      <div class="space-card">
+        <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=600&q=80" alt="Giardino per cerimonie">
+        <div class="body">
+          <h3>Il Giardino all'Italiana</h3>
+          <div class="capacity">Fino a 150 ospiti</div>
+          <p>Perfetto per cerimonie simboliche e civili all'aperto, con vista sulle colline del Valdarno.</p>
+        </div>
+      </div>
+      <div class="space-card">
+        <img src="https://images.unsplash.com/photo-1478146059778-26028b07395a?auto=format&fit=crop&w=600&q=80" alt="Salone affrescato">
+        <div class="body">
+          <h3>Il Salone Affrescato</h3>
+          <div class="capacity">Fino a 120 ospiti seduti</div>
+          <p>La sala storica della villa, con affreschi originali del '700, ideale per il ricevimento.</p>
+        </div>
+      </div>
+      <div class="space-card">
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=600&q=80" alt="Terrazza panoramica">
+        <div class="body">
+          <h3>La Terrazza sull'Oliveta</h3>
+          <div class="capacity">Fino a 80 ospiti</div>
+          <p>Aperitivo al tramonto con vista sugli uliveti secolari, ideale per il momento del cocktail.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servizi">
+  <div class="wrap">
+    <h2 class="section-title">Servizi Inclusi</h2>
+    <p class="section-sub">Ci occupiamo della location, voi pensate solo a godervi la giornata</p>
+    <div class="services-grid">
+      <div><div class="service-icon">🌿</div><h4>Allestimento Giardino</h4><p>Sedie, gazebo e allestimento floreale di base</p></div>
+      <div><div class="service-icon">🏛️</div><h4>Uso Esclusivo Villa</h4><p>Location riservata solo al vostro evento</p></div>
+      <div><div class="service-icon">🚗</div><h4>Parcheggio Privato</h4><p>Fino a 80 posti auto custoditi</p></div>
+      <div><div class="service-icon">🛏️</div><h4>Pernottamento Sposi</h4><p>Suite dedicata per la prima notte</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="galleria" class="gallery">
+  <div class="wrap">
+    <h2 class="section-title">Galleria</h2>
+    <p class="section-sub">Un assaggio dell'atmosfera della villa</p>
+    <div class="gallery-grid">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=500&q=80" alt="Villa al tramonto">
+      <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=500&q=80" alt="Giardino fiorito">
+      <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=500&q=80" alt="Tavolo apparecchiato per evento">
+      <img src="https://images.unsplash.com/photo-1478146059778-26028b07395a?auto=format&fit=crop&w=500&q=80" alt="Interni della villa">
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="wrap">
+    <h2 class="section-title">Le Parole di Chi Ha Scelto la Villa</h2>
+    <p class="section-sub">Le esperienze di chi ha vissuto qui il proprio giorno speciale</p>
+    <div class="review-grid">
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>"Il posto più bello dove potessimo sposarci. Lo staff ci ha seguito passo passo, tutto perfetto."</p>
+        <div class="author">— Elena & Francesco</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>"I nostri ospiti stranieri sono rimasti incantati dal giardino e dal panorama sul Valdarno."</p>
+        <div class="author">— Sarah & James, Londra</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>"Location elegante senza essere sfarzosa. Il tramonto dalla terrazza è stato indimenticabile."</p>
+        <div class="author">— Chiara & Matteo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info" id="dove">
+  <div class="wrap info-grid">
+    <div>
+      <h3>Dove Siamo</h3>
+      <p>Via delle Ginestre, 24<br>Rignano sull'Arno (FI)</p>
+    </div>
+    <div>
+      <h3>Disponibilità</h3>
+      <p>Aprile – Ottobre<br>Sopralluoghi tutto l'anno su appuntamento</p>
+    </div>
+    <div>
+      <h3>Contatti</h3>
+      <p>Tel: 055 000 0000<br>WhatsApp: 333 000 0000</p>
+    </div>
+  </div>
+</section>
+
+<section id="richiedi" style="background:#fff;">
+  <div class="wrap">
+    <h2 class="section-title">Richiedi Info e Disponibilità</h2>
+    <p class="section-sub">Rispondiamo entro 24 ore con date disponibili e preventivo indicativo</p>
+    <form class="request" onsubmit="event.preventDefault(); window.location.href='https://wa.me/390000000000?text=' + encodeURIComponent('Salve, vorrei informazioni su Villa delle Ginestre per il ' + document.getElementById('data-evento').value);">
+      <label>Nome e Cognome</label>
+      <input type="text" required placeholder="Es. Elena Rossi">
+      <label>Email</label>
+      <input type="email" required placeholder="nome@esempio.it">
+      <label>Data indicativa dell'evento</label>
+      <input type="date" id="data-evento">
+      <label>Numero indicativo di invitati</label>
+      <input type="number" placeholder="Es. 100">
+      <label>Messaggio</label>
+      <textarea placeholder="Raccontaci il tuo evento..."></textarea>
+      <button class="btn" type="submit" style="border:none;cursor:pointer;">Invia Richiesta su WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Prenota un sopralluogo gratuito</h2>
+    <p style="margin-bottom:28px;opacity:0.9;">Vieni a vedere la villa dal vivo, senza impegno</p>
+    <a class="btn" href="https://wa.me/390000000000" target="_blank" rel="noopener">Scrivici su WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    &copy; 2026 Villa delle Ginestre — Valdarno Fiorentino
+  </div>
+</footer>
+
+</body>
+</html>
