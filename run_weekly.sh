@@ -31,7 +31,8 @@ python3 scripts/generate_demo_batch.py lead_valdarno.csv \
   --smaria-dir "$SMARIA_DIR" \
   --style-variants scripts/style_variants.json \
   --out output_demo \
-  --only-without-site
+  --only-without-site \
+  --limit 15
 
 echo "== Fatto =="
 echo "CSV: $ROOT_DIR/lead_valdarno.csv"
