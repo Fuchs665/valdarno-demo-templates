@@ -38,11 +38,21 @@ from collections import defaultdict
 
 CATEGORY_MAP = {
     "Ristorante": "ristorante",
+    "Cantina/vendita vino": "ristorante",  # riusa il template ristorante, adatto a sale degustazione
+    "Frantoio/olio": "ristorante",
     "Location matrimoni": "eventi",
     "Agriturismo": "ricettivo",
     "Agriturismo/Farm stay": "ricettivo",
     "Hotel/B&B": "ricettivo",
+    # "Centro benessere/Spa", "Palestra", "Maneggio" restano intenzionalmente
+    # senza template: sono categorie a priorita' piu' bassa (vedi analisi settori),
+    # restano comunque nel CSV per una valutazione manuale futura.
 }
+
+# Ordine di priorita' nella generazione quando c'e' un limite: prima le categorie
+# con demo completamente automatica (ristorante/eventi), poi quelle che richiedono
+# comunque un passaggio manuale con Claude Code (ricettivo/S.Maria).
+KIND_PRIORITY = {"ristorante": 0, "eventi": 0, "ricettivo": 1}
 
 TEMPLATE_VARS = {
     "ristorante": {"primario": "--brick", "secondario": "--olive", "accento": "--gold", "sfondo": "--cream", "testo": "--ink"},
@@ -58,6 +68,18 @@ GOOGLE_FONTS_TEMPLATE = (
 def slugify(name):
     s = re.sub(r"[^a-zA-Z0-9]+", "-", name.strip().lower()).strip("-")
     return s or "cliente"
+
+
+def unique_slug(base_slug, out_dir, used_slugs):
+    """Evita che due lead con lo stesso nome (es. 'Agriturismo' generico)
+    finiscano nella stessa cartella, causando un fallimento del clone."""
+    slug = base_slug
+    i = 2
+    while slug in used_slugs or os.path.isdir(os.path.join(out_dir, slug)):
+        slug = f"{base_slug}-{i}"
+        i += 1
+    used_slugs.add(slug)
+    return slug
 
 
 def pick_variant_for(comune, variants, used_by_comune):
@@ -113,7 +135,7 @@ def apply_variant_to_html(html, category, variant):
     return html
 
 
-def fill_static_template(template_path, category, row, variant, out_dir):
+def fill_static_template(template_path, category, row, variant, out_dir, used_slugs):
     with open(template_path, encoding="utf-8") as f:
         html = f.read()
 
@@ -136,7 +158,7 @@ def fill_static_template(template_path, category, row, variant, out_dir):
 
     html = apply_variant_to_html(html, category, variant)
 
-    slug = slugify(nome)
+    slug = unique_slug(slugify(nome), out_dir, used_slugs)
     dest_dir = os.path.join(out_dir, slug)
     os.makedirs(dest_dir, exist_ok=True)
     dest_path = os.path.join(dest_dir, "index.html")
@@ -146,9 +168,9 @@ def fill_static_template(template_path, category, row, variant, out_dir):
     return dest_path, slug
 
 
-def prepare_smaria_prompt(row, variant, smaria_dir, out_dir, clone_script="clone_template.sh"):
+def prepare_smaria_prompt(row, variant, smaria_dir, out_dir, used_slugs, clone_script="clone_template.sh"):
     nome = row["nome"].strip()
-    slug = slugify(nome)
+    slug = unique_slug(slugify(nome), out_dir, used_slugs)
     dest_dir = os.path.join(out_dir, slug)
     os.makedirs(dest_dir, exist_ok=True)
 
@@ -157,6 +179,7 @@ def prepare_smaria_prompt(row, variant, smaria_dir, out_dir, clone_script="clone
 
     clone_target = os.path.join(dest_dir, f"{slug}-sito")
     ran_clone = False
+    clone_error = None
     clone_path = os.path.join(smaria_dir, clone_script)
     if os.path.isfile(clone_path):
         try:
@@ -166,7 +189,10 @@ def prepare_smaria_prompt(row, variant, smaria_dir, out_dir, clone_script="clone
             )
             ran_clone = True
         except subprocess.CalledProcessError as e:
-            print(f"  Attenzione: clone_template.sh ha dato errore per {nome}: {e.stderr[:300]}")
+            clone_error = (e.stderr or e.stdout or "errore sconosciuto").strip().splitlines()[-1][:200]
+            print(f"  Attenzione: clone_template.sh ha dato errore per {nome}: {clone_error}")
+    else:
+        clone_error = f"clone_template.sh non trovato in {smaria_dir}"
 
     prompt_text = f"""Contesto: sto costruendo velocemente siti-demo da mostrare ad attivita locali
 nel Valdarno fiorentino, partendo da un template esistente (S.Maria, gia clonato
@@ -195,7 +221,7 @@ avevo dati sufficienti per scriverli io in automatico.
     with open(prompt_path, "w", encoding="utf-8") as f:
         f.write(prompt_text)
 
-    return dest_dir, ran_clone, prompt_path
+    return dest_dir, ran_clone, prompt_path, clone_error
 
 
 def main():
@@ -207,6 +233,10 @@ def main():
     parser.add_argument("--style-variants", default="style_variants.json")
     parser.add_argument("--out", default="output_demo")
     parser.add_argument("--only-without-site", action="store_true")
+    parser.add_argument("--limit", type=int, default=15,
+                         help="Numero massimo di demo da generare in questa esecuzione "
+                              "(default 15, tarato sul ritmo settimanale sostenibile). "
+                              "Il resto dei lead resta comunque nel CSV per dopo.")
     args = parser.parse_args()
 
     with open(args.style_variants, encoding="utf-8") as f:
@@ -218,36 +248,56 @@ def main():
     if args.only_without_site:
         rows = [r for r in rows if str(r.get("ha_sito", "")).lower() in ("false", "", "0")]
 
+    total_matched = sum(1 for r in rows if CATEGORY_MAP.get(r.get("categoria", "").strip()))
+    skipped_category = [r for r in rows if not CATEGORY_MAP.get(r.get("categoria", "").strip())]
+
+    # Priorita': prima le categorie con demo 100% automatica (ristorante/eventi),
+    # poi quelle che richiedono comunque un passaggio manuale con Claude Code.
+    matched_rows = [r for r in rows if CATEGORY_MAP.get(r.get("categoria", "").strip())]
+    matched_rows.sort(key=lambda r: KIND_PRIORITY.get(CATEGORY_MAP[r.get("categoria", "").strip()], 9))
+
+    limited_rows = matched_rows[: args.limit]
+    dropped_for_limit = len(matched_rows) - len(limited_rows)
+
     os.makedirs(args.out, exist_ok=True)
     used_by_comune = defaultdict(list)
+    used_slugs = set()
     report = []
 
-    for row in rows:
+    for row in limited_rows:
         categoria_raw = row.get("categoria", "").strip()
-        kind = CATEGORY_MAP.get(categoria_raw)
-        if kind is None:
-            report.append((row.get("nome", "?"), categoria_raw, "SALTATO: categoria non mappata"))
-            continue
+        kind = CATEGORY_MAP[categoria_raw]
 
         comune = row.get("comune", "sconosciuto") or "sconosciuto"
         variant = pick_variant_for(comune, variants, used_by_comune)
 
         if kind == "ristorante":
-            path, slug = fill_static_template(args.ristorante_template, "ristorante", row, variant, args.out)
+            path, slug = fill_static_template(args.ristorante_template, "ristorante", row, variant, args.out, used_slugs)
             report.append((row.get("nome", "?"), categoria_raw, f'Demo pronta: {path} (variante "{variant["nome"]}")'))
         elif kind == "eventi":
-            path, slug = fill_static_template(args.eventi_template, "eventi", row, variant, args.out)
+            path, slug = fill_static_template(args.eventi_template, "eventi", row, variant, args.out, used_slugs)
             report.append((row.get("nome", "?"), categoria_raw, f'Demo pronta: {path} (variante "{variant["nome"]}")'))
         elif kind == "ricettivo":
-            dest_dir, ran_clone, prompt_path = prepare_smaria_prompt(row, variant, args.smaria_dir, args.out)
-            status = "identita' clonata, stile da completare con Claude Code" if ran_clone else "clone fallito, controlla a mano"
+            dest_dir, ran_clone, prompt_path, clone_error = prepare_smaria_prompt(row, variant, args.smaria_dir, args.out, used_slugs)
+            if ran_clone:
+                status = "identita' clonata, stile da completare con Claude Code"
+            else:
+                status = f"clone fallito ({clone_error}), controlla a mano"
             report.append((row.get("nome", "?"), categoria_raw, f'{status} -> {prompt_path} (variante "{variant["nome"]}")'))
 
     print("\nRIEPILOGO\n" + "-" * 60)
     for nome, cat, esito in report:
         print(f"- {nome} [{cat}]: {esito}")
 
-    print(f"\nFatto. {len(report)} righe processate. Output in: {args.out}/")
+    if skipped_category:
+        cats = sorted(set(r.get("categoria", "?") for r in skipped_category))
+        print(f"\n{len(skipped_category)} lead saltati per categoria senza template mappato: {', '.join(cats)} (restano nel CSV, nessuna demo generata).")
+
+    if dropped_for_limit > 0:
+        print(f"\n{dropped_for_limit} lead idonei non processati per il limite di {args.limit} demo a esecuzione "
+              f"(restano nel CSV, verranno ripresi nelle prossime settimane).")
+
+    print(f"\nFatto. {len(report)} demo generate su {total_matched} lead idonei nel CSV. Output in: {args.out}/")
 
 
 if __name__ == "__main__":
