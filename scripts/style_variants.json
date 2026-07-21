@@ -1,0 +1,59 @@
+{
+  "_note": "Banca di varianti di stile predefinite. Passane UNA per volta a Claude Code insieme al prompt, così ogni demo generata è visivamente distinta invece di essere una leggera variazione della stessa estetica 'da IA'.",
+  "variants": [
+    {
+      "id": 1,
+      "nome": "Terra di Siena",
+      "palette": {"primario": "#B4592E", "secondario": "#5C6B4A", "accento": "#C9A24B", "sfondo": "#FAF6EE", "testo": "#2B2620"},
+      "font_titoli": "Playfair Display (serif elegante)",
+      "font_testo": "Lato (sans-serif pulito)",
+      "hero_style": "immagine a piena larghezza con overlay scuro, titolo centrato",
+      "layout_note": "Sezioni con bordi arrotondati leggeri, molto white space"
+    },
+    {
+      "id": 2,
+      "nome": "Oliveto Blu",
+      "palette": {"primario": "#3F5B52", "secondario": "#8C9A7C", "accento": "#D4AF6A", "sfondo": "#F4F1E8", "testo": "#22271F"},
+      "font_titoli": "Cormorant Garamond (serif alto, sottile)",
+      "font_testo": "Karla (sans-serif geometrico)",
+      "hero_style": "split screen: foto a sinistra, testo su sfondo pieno a destra",
+      "layout_note": "Sezioni squadrate, linee sottili come separatori, niente ombre"
+    },
+    {
+      "id": 3,
+      "nome": "Rosso Chianti",
+      "palette": {"primario": "#7B2E2E", "secondario": "#4A4238", "accento": "#BFA05A", "sfondo": "#FDFBF6", "testo": "#241E1B"},
+      "font_titoli": "Fraunces (serif con carattere, leggermente vintage)",
+      "font_testo": "Work Sans",
+      "hero_style": "video/immagine full screen con testo in basso a sinistra",
+      "layout_note": "Card con ombra morbida, angoli molto arrotondati, stile 'boutique'"
+    },
+    {
+      "id": 4,
+      "nome": "Pietra Serena",
+      "palette": {"primario": "#4B4B4B", "secondario": "#7C8471", "accento": "#A67C52", "sfondo": "#F2F0EB", "testo": "#1F1F1F"},
+      "font_titoli": "Libre Baskerville",
+      "font_testo": "Inter",
+      "hero_style": "immagine ridotta (non full screen), molto spazio bianco sopra e sotto, minimal",
+      "layout_note": "Layout a griglia asimmetrica, stile 'studio di architettura'"
+    },
+    {
+      "id": 5,
+      "nome": "Girasole Toscano",
+      "palette": {"primario": "#C97F2B", "secondario": "#556B4B", "accento": "#8B3A3A", "sfondo": "#FFF9EE", "testo": "#2E2418"},
+      "font_titoli": "DM Serif Display",
+      "font_testo": "Nunito Sans",
+      "hero_style": "collage di 2-3 foto invece di una sola immagine grande",
+      "layout_note": "Elementi decorativi leggeri (linee, piccole icone disegnate), tono più caldo/informale"
+    },
+    {
+      "id": 6,
+      "nome": "Notte in Collina",
+      "palette": {"primario": "#2E3B32", "secondario": "#9C8A5E", "accento": "#D9C9A3", "sfondo": "#111812", "testo": "#F3EFE4"},
+      "font_titoli": "Marcellus",
+      "font_testo": "Mulish",
+      "hero_style": "tema scuro/elegante, foto con overlay leggero, ideale per location eventi serali",
+      "layout_note": "Contrasto alto, sezioni scure alternate a sezioni chiare, effetto 'boutique hotel'"
+    }
+  ]
+}
